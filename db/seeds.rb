@@ -1,7 +1,13 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'rest-client'
+require 'json'
+
+# Get request to the API
+breweries_string = RestClient.get('https://api.openbrewerydb.org/breweries')
+breweries_hash = JSON.parse(breweries_string)
+
+# Iterate through each show from API and create data for the rails api backend
+puts "creating breweries"
+breweries_hash.each do |b|
+    Brewery.create(id: b["id"], name: b["name"], brewery_type: b["brewery_type"], street: b["street"], city: b["city"], state: b["state"], postal_code: b["postal_code"], longitude: b["longitude"], latitude: b["latitude"], website_url: b["website_url"])
+end 
+puts "created breweries"
