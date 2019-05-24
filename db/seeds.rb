@@ -2,7 +2,7 @@ require 'rest-client'
 require 'json'
 
 # Get request to the API
-breweries_string = RestClient.get('https://api.openbrewerydb.org/breweries?by_city=new_york')
+breweries_string = RestClient.get('https://api.openbrewerydb.org/breweries?by_city=san_francisco')
 breweries_hash = JSON.parse(breweries_string)
 
 # Iterate through each show from API and create data for the rails api backend
